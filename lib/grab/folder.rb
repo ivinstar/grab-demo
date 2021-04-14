@@ -1,0 +1,38 @@
+# frozen_string_literal: true
+
+require 'fileutils'
+require 'dry/monads'
+
+module Grab
+  class Folder
+    include Dry::Monads[:try, :result, :do]
+
+    attr_accessor :dir
+
+    def initialize(dir)
+      @dir = dir
+    end
+
+    def call
+      exists?.either(
+        ->(_) { yield writable? },
+        ->(_) { yield create }
+      )
+      Success(:ok)
+    end
+
+    private
+
+    def exists?
+      File.directory?(dir) ? Success(:ok) : Failure(:directory_doesnt_exist)
+    end
+
+    def writable?
+      File.stat(dir).writable? ? Success(:ok) : Failure(:directory_doesnt_writable)
+    end
+
+    def create
+      Try { FileUtils.mkdir_p dir, mode: 0755 }.to_result
+    end
+  end
+end
