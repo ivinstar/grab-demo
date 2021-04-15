@@ -7,18 +7,17 @@ module Grab
   class Folder
     include Dry::Monads[:try, :result, :do]
 
-    attr_accessor :dir
+    attr_reader :dir
 
     def initialize(dir)
       @dir = dir
     end
 
     def call
-      exists?.either(
-        ->(_) { yield writable? },
-        ->(_) { yield create }
-      )
-      Success(:ok)
+      yield writable? if exists?.success?
+      folder = yield create
+
+      Success("Folder #{folder.join('/')} created")
     end
 
     private
