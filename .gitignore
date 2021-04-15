@@ -1,0 +1,4 @@
+### Rubymine meta ###
+/.idea/*
+
+.env
