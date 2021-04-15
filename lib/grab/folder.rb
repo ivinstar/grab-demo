@@ -15,9 +15,9 @@ module Grab
 
     def call
       yield writable? if exists?.success?
-      folder = yield create
+      yield create
 
-      Success("Folder #{folder.join('/')} created")
+      Success(:upload_folder_is_ok)
     end
 
     private

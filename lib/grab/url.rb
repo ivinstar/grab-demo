@@ -20,6 +20,10 @@ module Grab
       url =~ url_regexp ? Success(:ok) : Failure(:url_is_bad)
     end
 
+    def filename
+      Try { File.basename(uri.path) }.to_result
+    end
+
     def normalize!(url); end
 
   end
