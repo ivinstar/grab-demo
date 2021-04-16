@@ -6,15 +6,15 @@ require './lib/grab/download'
 
 RSpec.describe Grab::Download do
   let(:origin) { 'spec/test_data.txt' }
-  let(:upload_to) { 'images_test' }
-  let(:class_instance) { Grab::Download.new(origin, upload_to) }
+  let(:download_to) { 'images_test' }
+  let(:class_instance) { Grab::Download.new(origin, download_to) }
 
-  before { FileUtils.mkdir_p upload_to, mode: 0755 }
-  after { FileUtils.rm_rf(upload_to) }
+  before { FileUtils.mkdir_p download_to, mode: 0755 }
+  after { FileUtils.rm_rf(download_to) }
 
   context '#is_file?' do
     let(:file) { 'test_data.txt' }
-    let(:class_instance_1) { Grab::Download.new(file, upload_to) }
+    let(:class_instance_1) { Grab::Download.new(file, download_to) }
 
     it  do
       expect(class_instance.is_file?).to be_success
@@ -34,7 +34,7 @@ RSpec.describe Grab::Download do
 
   context '#copy' do
     let(:tmpfile) { Tempfile.new(File.basename(rand(-100).to_s), Dir.tmpdir) }
-    let(:filename) { "#{upload_to}/#{rand(-100).to_s}" }
+    let(:filename) { "#{download_to}/#{rand(-100).to_s}" }
     let(:filename_1) { "images_1/#{rand(-100).to_s}" }
     let(:class_instance_1) { Grab::Download.new(origin, 'images_1') }
 

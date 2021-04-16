@@ -17,7 +17,7 @@ module Grab
       yield writable? if exists?.success?
       yield create
 
-      Success(:upload_folder_is_ok)
+      Success(:download_folder_is_ok)
     end
 
     private

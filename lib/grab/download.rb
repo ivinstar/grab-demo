@@ -7,13 +7,13 @@ module Grab
   class Download
     include Dry::Monads[:try, :result, :do, :task]
 
-    attr_reader :origin, :upload_to
+    attr_reader :origin, :download_to
 
     SEPARATOR = /\s/
 
-    def initialize(origin, upload_to)
+    def initialize(origin, download_to)
       @origin = origin
-      @upload_to = upload_to
+      @download_to = download_to
     end
 
     def call
@@ -48,7 +48,7 @@ module Grab
         url ||= uri.url
         fetch_source(url).either(
           ->(_) {
-            yield copy(_.file.path, "#{upload_to}/#{uri.filename.success}")
+            yield copy(_.file.path, "#{download_to}/#{uri.filename.success}")
           },
           ->(_err) {}
         )
@@ -70,7 +70,5 @@ module Grab
     def copy(src, dest)
       Try { FileUtils.mv(src, dest) }.to_result
     end
-
-    def in_white_list?; end
   end
 end

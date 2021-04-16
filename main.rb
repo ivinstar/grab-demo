@@ -7,6 +7,6 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 Dotenv.load
 
 origin_file = ENV['ORIGIN_FILE']
-upload_folder = ENV['UPLOAD_FOLDER']
+download_folder = ENV['DOWNLOAD_FOLDER']
 
-Grab.call(origin: origin_file, upload_to: upload_folder)
+Grab.call(origin: origin_file, download_to: download_folder)
