@@ -23,7 +23,7 @@ module Grab
 
     def filename
       filename = File.basename(uri.path)
-      /.\.(png|jpeg|jpg|gif)$/ =~ filename ? Success(:ok) : Failure(:no_image)
+      /.\.(png|jpeg|jpg|gif)$/ =~ filename ? Success(filename) : Failure(:no_image)
     end
 
     def normalize!(url); end

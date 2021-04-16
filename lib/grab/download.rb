@@ -7,22 +7,21 @@ module Grab
   class Download
     include Dry::Monads[:try, :result, :do, :task]
 
-    attr_reader :origin, :upload_to, :threads
+    attr_reader :origin, :upload_to
 
     SEPARATOR = /\s/
 
     def initialize(origin, upload_to)
       @origin = origin
       @upload_to = upload_to
-      @threads = []
     end
 
     def call
       yield is_file?
 
       link = ''
-      file = File.open(origin)
-      file.each_char do |char|
+      threads = []
+      File.open(origin).each_char do |char|
         if SEPARATOR =~ char
           uri = Grab::Url.new(link)
           if uri.valid?.success?
@@ -50,10 +49,10 @@ module Grab
         fetch_source(url).either(
           ->(_) {
             yield copy(_.file.path, "#{upload_to}/#{uri.filename.success}")
-            p thread
           },
-          ->(_err) { thread.exit }
+          ->(_err) {}
         )
+        p thread
       end
 
     end

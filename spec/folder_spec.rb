@@ -22,7 +22,7 @@ RSpec.describe Grab::Folder do
 
     before { FileUtils.mkdir_p 'test', mode: 0555 }
 
-    it "if dir folder doesn't exist returns success" do
+    it "if dir folder doesn't exist returns failure" do
       expect(described_class.new(dir).call).to be_failure
       expect(File.directory?(dir)).to be false
     end
