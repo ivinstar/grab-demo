@@ -147,6 +147,7 @@ DEPENDENCIES
   dry-struct
   dry-types
   dry-validation
+  rake
   rest-client
   rspec
 

@@ -8,3 +8,5 @@ In current solution the origin file and download folder describe in `.env` file.
 `git clone git@github.com:ivinstar/grab-demo.git`
 
 `cp .env.sample .env` update `.env` with your data, create origin file with urls separated by whitespace
+
+Run app using `rake download` command in console
