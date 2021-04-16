@@ -6,8 +6,6 @@ module Grab
   class << self
     include Dry::Monads[:try, :result, :do]
 
-    attr_reader :origin, :download_to
-
     def call(origin:, download_to:)
       @origin, @download_to = origin, download_to
 
@@ -25,6 +23,8 @@ module Grab
     end
 
     private
+
+    attr_reader :origin, :download_to
 
     def handle_message(message)
       puts locales[message] || message.to_s

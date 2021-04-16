@@ -7,8 +7,6 @@ module Grab
   class Folder
     include Dry::Monads[:try, :result, :do]
 
-    attr_reader :dir
-
     def initialize(dir)
       @dir = dir
     end
@@ -21,6 +19,8 @@ module Grab
     end
 
     private
+
+    attr_reader :dir
 
     def exists?
       File.directory?(dir) ? Success(:ok) : Failure(:directory_doesnt_exist)

@@ -8,8 +8,6 @@ module Grab
   class Url
     include Dry::Monads[:try, :result, :do]
 
-    attr_reader :uri, :url
-
     def initialize(url)
       @uri = URI.parse(url)
       @url = url
@@ -25,5 +23,10 @@ module Grab
       filename = File.basename(uri.path)
       /.\.(png|jpeg|jpg|gif)$/ =~ filename ? Success(filename) : Failure(:no_image)
     end
+
+    private
+
+    attr_reader :uri, :url
+
   end
 end

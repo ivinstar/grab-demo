@@ -7,8 +7,6 @@ module Grab
   class Download
     include Dry::Monads[:try, :result, :do, :task]
 
-    attr_reader :origin, :download_to
-
     SEPARATOR = /\s/
 
     def initialize(origin, download_to)
@@ -43,6 +41,8 @@ module Grab
     end
 
     private
+
+    attr_reader :origin, :download_to
 
     def is_file?
       File.file?(origin) ? Success() : Failure(:not_a_regular_file_or_doesnt_exist)
