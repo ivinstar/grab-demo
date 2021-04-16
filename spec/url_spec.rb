@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'rspec'
-require './lib/grab/url'
+require 'spec_helper'
 
 RSpec.describe Grab::Url do
   let(:url_1) { 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg?w=636&h=424' }

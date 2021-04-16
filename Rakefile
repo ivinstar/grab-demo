@@ -5,7 +5,7 @@ require 'dotenv'
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
-Dotenv.load
+Dotenv.load('.env')
 
 task :download do
   origin_file = ENV['ORIGIN_FILE']

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'rspec'
-require './lib/grab/folder'
+require 'spec_helper'
 
 RSpec.describe Grab::Folder do
   let(:dir) { 'images_test' }

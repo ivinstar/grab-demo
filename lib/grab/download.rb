@@ -21,7 +21,8 @@ module Grab
 
       link = ''
       threads = []
-      File.open(origin).each_char do |char|
+      f = File.open(origin)
+      f.each_char do |char|
         if SEPARATOR =~ char
           uri = Grab::Url.new(link)
           if uri.valid?.success?
@@ -31,6 +32,10 @@ module Grab
           end
         end
         link += char
+        if f.eof?
+          uri = Grab::Url.new(link)
+          threads << download(uri) if f.eof?
+        end
       end
       threads.each(&:join)
 
@@ -44,7 +49,7 @@ module Grab
     end
 
     def download(uri)
-      Thread.new(uri) do |thread|
+      thr= Thread.new(uri) do |thread|
         url ||= uri.url
         fetch_source(url).either(
           ->(_) {
@@ -54,7 +59,7 @@ module Grab
         )
         p thread
       end
-
+      thr
     end
 
     def fetch_source(url)

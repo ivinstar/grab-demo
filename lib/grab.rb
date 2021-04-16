@@ -27,10 +27,10 @@ module Grab
     private
 
     def handle_message(message)
-      puts locals[message] || message.to_s
+      puts locales[message] || message.to_s
     end
 
-    def locals
+    def locales
       {
         directory_doesnt_writable: "Directory is not writable",
         not_a_regular_file_or_doesnt_exist: "The origin file isn't a file or doesn't exist"

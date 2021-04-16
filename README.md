@@ -9,4 +9,6 @@ In current solution the origin file and download folder describe in `.env` file.
 
 `cp .env.sample .env` update `.env` with your data, create origin file with urls separated by whitespace
 
+`cp .env.test.sample .env.test` to run specs
+
 Run app using `rake download` command in console

@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require 'rspec'
-require './lib/grab'
+require 'spec_helper'
 
 RSpec.describe Grab do
-  let(:origin) { 'spec/test_data.txt' }
-  let(:download_to) { 'images_test' }
+  let(:origin) { RSpec.configuration.origin_file }
+  let(:download_to) { RSpec.configuration.download_folder }
 
   after { FileUtils.rm_rf(download_to) }
 

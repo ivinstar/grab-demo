@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-require 'rspec'
-require 'tempfile'
-require './lib/grab/download'
+require 'spec_helper'
 
 RSpec.describe Grab::Download do
-  let(:origin) { 'spec/test_data.txt' }
-  let(:download_to) { 'images_test' }
-  let(:class_instance) { Grab::Download.new(origin, download_to) }
+  let(:origin_file) { RSpec.configuration.origin_file }
+  let(:download_to) { RSpec.configuration.download_folder }
+  let(:class_instance) { Grab::Download.new(origin_file, download_to) }
 
   before { FileUtils.mkdir_p download_to, mode: 0755 }
   after { FileUtils.rm_rf(download_to) }
@@ -36,7 +34,7 @@ RSpec.describe Grab::Download do
     let(:tmpfile) { Tempfile.new(File.basename(rand(-100).to_s), Dir.tmpdir) }
     let(:filename) { "#{download_to}/#{rand(-100).to_s}" }
     let(:filename_1) { "images_1/#{rand(-100).to_s}" }
-    let(:class_instance_1) { Grab::Download.new(origin, 'images_1') }
+    let(:class_instance_1) { Grab::Download.new(origin_file, 'images_1') }
 
     it do
       expect(class_instance.copy(tmpfile, filename)).to be_success
@@ -45,6 +43,11 @@ RSpec.describe Grab::Download do
   end
 
   context '#download' do
+    let(:url_1) { 'https://i.natgeofe.com/n/9135' }
+    let(:uri) { uri = Grab::Url.new(url_1) }
 
+    it do
+      expect(class_instance.download(uri)).to a_kind_of(Thread)
+    end
   end
 end
