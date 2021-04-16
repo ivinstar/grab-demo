@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Grab::Folder do
-  let(:dir) { 'images_test' }
+  let(:dir) { RSpec.configuration.download_folder }
 
   after { FileUtils.rm_rf(dir) }
 
