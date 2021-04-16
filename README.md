@@ -11,4 +11,4 @@ In current solution the origin file and download folder describe in `.env` file.
 
 `cp .env.test.sample .env.test` to run specs
 
-Run app using `rake download` command in console
+Run app using `rake download` or `ruby main.rb` command in console
