@@ -9,7 +9,11 @@ RSpec.describe Grab do
   after { FileUtils.rm_rf(download_to) }
 
   context '#call' do
-    before { described_class.call(origin: origin, download_to: download_to) }
+    before do
+      VCR.use_cassette("grab") do
+        described_class.call(origin: origin, download_to: download_to)
+      end
+    end
 
     it "with success" do
       expect(Dir.empty?(download_to)).to be false

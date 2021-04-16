@@ -25,8 +25,12 @@ RSpec.describe Grab::Download do
     let(:url_2) { 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg?w=636&h=424' }
 
     it do
-      expect(class_instance.fetch_source(url_1)).to be_failure
-      expect(class_instance.fetch_source(url_2)).to be_success
+      VCR.use_cassette("download/url_1") do
+        expect(class_instance.fetch_source(url_1)).to be_failure
+      end
+      VCR.use_cassette("download/url_2") do
+        expect(class_instance.fetch_source(url_2)).to be_success
+      end
     end
   end
 
