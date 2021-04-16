@@ -16,12 +16,14 @@ module Grab
     end
 
     def valid?
-      url_regexp = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i
+      url_regexp = /^(http|https):\/\/\w+([\-\.]{1}\w+)*\.[a-z]{2,5}(:\d{1,5})?(\.[png|jpeg|jpg|gif])?(\/.*)?$/i
+
       url =~ url_regexp ? Success(:ok) : Failure(:url_is_bad)
     end
 
     def filename
-      Try { File.basename(uri.path) }.to_result
+      filename = File.basename(uri.path)
+      /.\.(png|jpeg|jpg|gif)$/ =~ filename ? Success(:ok) : Failure(:no_image)
     end
 
     def normalize!(url); end

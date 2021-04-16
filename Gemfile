@@ -7,6 +7,8 @@ gem 'dry-monads'
 gem 'dry-struct'
 gem 'dry-types'
 gem 'dry-validation'
-
-
 gem 'rest-client'
+
+group :test do
+  gem 'rspec'
+end
